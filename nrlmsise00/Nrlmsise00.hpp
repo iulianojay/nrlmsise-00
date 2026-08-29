@@ -319,7 +319,7 @@ class Nrlmsise00 {
     Nrlmsise00(const std::array<int, 24>& switches);
 
     /**
-     * @brief Neutral Atmosphere Empircial Model from the surface to lower exosphere.
+     * @brief Neutral Atmosphere Empirical Model from the surface to lower exosphere.
      *
      * @param doy day of year
      * @param sec seconds in day

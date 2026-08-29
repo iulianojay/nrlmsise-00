@@ -46,23 +46,21 @@ target_sources(
 
 target_include_directories(
     ${PROJECT_NAME}
-    PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
+        $<INSTALL_INTERFACE:include>
 )
 
 install(
     TARGETS  ${PROJECT_NAME}
     LIBRARY  DESTINATION lib
     ARCHIVE  DESTINATION lib
-    INCLUDES DESTINATION include/${PROJECT_NAME}
+    INCLUDES DESTINATION include
 )
 
 install(
     DIRECTORY nrlmsise00/ 
-    DESTINATION include/${PROJECT_NAME}
+    DESTINATION include
     FILES_MATCHING PATTERN "*.hpp"
 )
 
