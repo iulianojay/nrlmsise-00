@@ -18,48 +18,31 @@ endif()
 message(STATUS "Build type is set to ${CMAKE_BUILD_TYPE}")
 
 # General testing information
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-include(CTest)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
-add_library(
-    ${PROJECT_NAME}
-    SHARED
-        nrlmsise00/Nrlmsise00.hpp
-        nrlmsise00/Nrlmsise00.cpp
+set(BASE ${CMAKE_CURRENT_LIST_DIR}/nrlmsise00)
+set(SOURCES 
+    ${BASE}/Nrlmsise00.hpp
+    ${BASE}/Nrlmsise00.cpp
+    ${BASE}/math.hpp
+    ${BASE}/math.cpp
+    ${BASE}/data.cpp
 )
+
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
 add_library(nrlmsise00::nrlmsise00 ALIAS ${PROJECT_NAME})
 
-set_target_properties(
-    ${PROJECT_NAME}
-    PROPERTIES
-        CXX_STANDARD 23
-        CXX_STANDARD_REQUIRED ON
-        POSITION_INDEPENDENT_CODE 1
-)
-
-target_sources(
-    ${PROJECT_NAME}
-    PRIVATE
-        nrlmsise00/math.cpp
-        nrlmsise00/data.cpp
-)
-
-target_include_directories(
-    ${PROJECT_NAME}
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:include>
-)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 23 CXX_STANDARD_REQUIRED ON POSITION_INDEPENDENT_CODE 1)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_LIST_DIR})
 
 install(
     TARGETS  ${PROJECT_NAME}
     LIBRARY  DESTINATION lib
     ARCHIVE  DESTINATION lib
-    INCLUDES DESTINATION include
 )
 
 install(
-    DIRECTORY nrlmsise00/ 
+    DIRECTORY ${BASE}
     DESTINATION include
     FILES_MATCHING PATTERN "*.hpp"
 )
@@ -67,6 +50,7 @@ install(
 # Unit tests (optional, controlled by BUILD_TESTING, default OFF)
 option(BUILD_TESTING "Build unit tests" OFF)
 if(BUILD_TESTING)
+    include(CTest)
     enable_testing()
     add_subdirectory(tests)
 endif()
@@ -84,14 +68,10 @@ if (BUILD_DOCS)
     if (DOXYGEN_FOUND)
         include(UseDoxygenDoc)
         add_doxygen_doc(
-            BUILD_DIR
-                ${CMAKE_CURRENT_BINARY_DIR}/docs
-            DOXY_FILE
-                ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in
-            TARGET_NAME
-                docs
-            COMMENT
-                "HTML Documentation"
+            BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/docs
+            DOXY_FILE ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in
+            TARGET_NAME docs
+            COMMENT "HTML Documentation"
         )
     endif()
 endif()

@@ -15,6 +15,7 @@ namespace math {
  * @return double integrated value
  */
 double splini(const double* xa, const double* ya, const double* y2a, const int n, const double& x);
+
 /**
  * @brief Calculate cubic spline interp value
  *
@@ -26,6 +27,7 @@ double splini(const double* xa, const double* ya, const double* y2a, const int n
  * @return double cubic spline interp value
  */
 double splint(const double* xa, const double* ya, const double* y2a, const int n, const double& x);
+
 /**
  * @brief Calculate 2nd derivatives of cubic spline interp function
  *
