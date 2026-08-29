@@ -1,5 +1,5 @@
-find_package(Perl REQUIRED)
-find_package(Doxygen REQUIRED)
+find_package(Perl)
+find_package(Doxygen)
 
 function(add_doxygen_doc)
   set(options)

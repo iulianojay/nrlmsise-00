@@ -1,16 +1,22 @@
-FIND_PACKAGE(Cppunit REQUIRED)
+find_package(Cppunit)
 
-list(APPEND test_FILES
-    Nrlmsise00Test.cpp)
+list(
+    APPEND test_FILES
+    Nrlmsise00Test.cpp
+)
 
-add_executable(unit_tests
-    TestRunner.cpp
-    ${test_FILES}
+if (CPPUNIT_FOUND)
+    add_executable(
+        unit_tests
+        TestRunner.cpp
+        ${test_FILES}
     )
 
-TARGET_LINK_LIBRARIES(unit_tests
-    ${CPPUNIT_LIBRARIES}
-    nrlmsise00
+    target_link_libraries(
+        unit_tests
+        ${CPPUNIT_LIBRARIES}
+        nrlmsise00
     )
 
-add_test(Nrlmsise00 unit_tests)
+    add_test(Nrlmsise00 unit_tests)
+endif()

@@ -32,5 +32,5 @@
 *.app
 
 # Cmake build folder
-_build/
+build/
 .vscode/
