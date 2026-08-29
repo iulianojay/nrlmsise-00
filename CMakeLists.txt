@@ -27,6 +27,7 @@ add_library(
         nrlmsise00/Nrlmsise00.hpp
         nrlmsise00/Nrlmsise00.cpp
 )
+add_library(nrlmsise00::nrlmsise00 ALIAS ${PROJECT_NAME})
 
 set_target_properties(
     ${PROJECT_NAME}
