@@ -319,6 +319,39 @@ class Nrlmsise00 {
     Nrlmsise00(const std::array<int, 24>& switches);
 
     /**
+     * @brief Set the switches for the NRLMSISE-00 model
+     *
+     * @param switches array with nrlmsise-00 switches
+     *
+     * The 24 switches have the following meaning:
+     * -  0: output in meters and kilograms instead of centimeters and grams
+     * -  1: F10.7 effect on mean
+     * -  2: time independent
+     * -  3: symmetrical annual
+     * -  4: symmetrical semiannual
+     * -  5: asymmetrical annual
+     * -  6: asymmetrical semiannual
+     * -  7: diurnal
+     * -  8: semidiurnal
+     * -  9: daily ap [when this is set to -1 (!) the pointer ap_a in struct nrlmsise_input must point to a struct ap_array]
+     * - 10: all UT/long effects
+     * - 11: longitudinal
+     * - 12: UT and mixed UT/long
+     * - 13: mixed AP/UT/LONG
+     * - 14: terdiurnal
+     * - 15: departures from diffusive equilibrium
+     * - 16: all TINF var
+     * - 17: all TLB var
+     * - 18: all TN1 var
+     * - 19: all S var
+     * - 20: all TN2 var
+     * - 21: all NLB var
+     * - 22: all TN3 var
+     * - 23: turbo scale height var
+     */
+    void set_switches(const std::array<int, 24>& switches);
+
+    /**
      * @brief Neutral Atmosphere Empirical Model from the surface to lower exosphere.
      *
      * @param doy day of year

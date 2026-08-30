@@ -8,7 +8,9 @@
 // Implementation
 namespace atmos {
 
-Nrlmsise00::Nrlmsise00(const std::array<int, 24>& switches)
+Nrlmsise00::Nrlmsise00(const std::array<int, 24>& switches) { set_switches(switches); }
+
+void Nrlmsise00::set_switches(const std::array<int, 24>& switches)
 {
     for (size_t i = 0; i < 24; i++) {
         a_switches.at(i) = switches.at(i);
